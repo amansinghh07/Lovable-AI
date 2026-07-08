@@ -1,11 +1,10 @@
 package com.codingshuttle.projects.lovable_clone.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -15,14 +14,24 @@ import java.time.Instant;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@Table(name="projects",
+        indexes = {
+        @Index(name = "idx_projects_updated_at-desc", columnList = "updated_at DESC, deleted_at"),
+        @Index(name="idx_projets_deleted_at_updated_at_desc", columnList = "deleted_at, updated_at DESC"),
+        @Index(name = "idx_project-deleted_at",columnList = "deleted_at")
+        }
+)
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(nullable = false)
     String name;
-    User owner;
     boolean isPublic=false;
+    @CreationTimestamp
     Instant createdAt;
+    @UpdateTimestamp
     Instant updatedAt;
     Instant deletedAt;
 

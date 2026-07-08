@@ -2,16 +2,18 @@ package com.codingshuttle.projects.lovable_clone.service;
 
 import com.codingshuttle.projects.lovable_clone.dto.member.InviteMemberRequest;
 import com.codingshuttle.projects.lovable_clone.dto.member.MemberResponse;
+import com.codingshuttle.projects.lovable_clone.dto.member.UpdateMemberRoleRequest;
 import com.codingshuttle.projects.lovable_clone.entity.ProjectMember;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ProjectMemberService {
-    List<ProjectMember> getProjectMembers(long projectId, Long userId);
+    List<MemberResponse> getProjectMembers(long projectId, Long userId);
 
     MemberResponse inviteMember(Long projectId, InviteMemberRequest request, Long userId);
 
-    MemberResponse updateMemberRole(Long projectId, Long memberId, InviteMemberRequest request);
+    MemberResponse updateMemberRole(Long projectId, Long memberId, UpdateMemberRoleRequest request, Long userId);
 
-    MemberResponse deleteProjectMember(Long projectId, Long memberId);
+    void removeProjectMember(Long projectId, Long memberId,Long userId);
 }

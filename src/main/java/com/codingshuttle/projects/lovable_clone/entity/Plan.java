@@ -7,14 +7,14 @@ import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+//@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Plan {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
     String stripePriceId;
