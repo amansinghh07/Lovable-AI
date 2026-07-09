@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ProjectMemberService {
-    List<MemberResponse> getProjectMembers(long projectId, Long userId);
+    List<MemberResponse> getProjectMembers(long projectId);
 
-    MemberResponse inviteMember(Long projectId, InviteMemberRequest request, Long userId);
+    MemberResponse inviteMember(Long projectId, InviteMemberRequest request);
 
-    MemberResponse updateMemberRole(Long projectId, Long memberId, UpdateMemberRoleRequest request, Long userId);
+    MemberResponse updateMemberRole(Long projectId, Long memberId, UpdateMemberRoleRequest request);
 
-    void removeProjectMember(Long projectId, Long memberId,Long userId);
+    void removeProjectMember(Long projectId, Long memberId);
 }
