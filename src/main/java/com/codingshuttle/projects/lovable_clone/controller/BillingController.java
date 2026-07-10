@@ -1,6 +1,7 @@
 package com.codingshuttle.projects.lovable_clone.controller;
 
 import com.codingshuttle.projects.lovable_clone.dto.subscription.*;
+import com.codingshuttle.projects.lovable_clone.service.PaymentProcessor;
 import com.codingshuttle.projects.lovable_clone.service.PlanService;
 import com.codingshuttle.projects.lovable_clone.service.ProjectService;
 import com.codingshuttle.projects.lovable_clone.service.SubscriptionService;
@@ -15,6 +16,7 @@ import java.util.List;
 public class BillingController {
     private final PlanService planService;
     private final SubscriptionService subscriptionService;
+    private final PaymentProcessor paymentProcessor;
     @GetMapping("/api/plans")
     public ResponseEntity<List<PlanResponse>> getAllPlans(){
         return ResponseEntity.ok(planService.getAllActivePlans());
@@ -24,16 +26,15 @@ public class BillingController {
         Long userId=1L;
         return ResponseEntity.ok(subscriptionService.getCurrentSubscription(userId));
     }
-    @PostMapping("/api/stripe/checkout")
+    @PostMapping("/api/payments/checkout")
     public ResponseEntity<CheckoutResponse> createCheckoutResponse(
             @RequestBody CheckoutRequest request
     ){
-        Long userId=1L;
-        return ResponseEntity.ok(subscriptionService.createCheckoutSessionUrl(request,userId));
+
+        return ResponseEntity.ok(paymentProcessor.createCheckoutSessionUrl(request));
     }
-    @PostMapping("/api/stripe/portal")
+    @PostMapping("/api/payments/portal")
     public ResponseEntity<PortalResponse> openCustomerPortal(){
-        Long userId=1L;
-        return ResponseEntity.ok(subscriptionService.openCustomerPortal(userId));
+        return ResponseEntity.ok(paymentProcessor.openCustomerPortal());
     }
 }
